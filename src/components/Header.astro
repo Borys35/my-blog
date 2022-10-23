@@ -1,0 +1,14 @@
+---
+import HeaderTags from "./HeaderTags.astro";
+
+export interface Props {
+  heading: string;
+}
+
+const { heading } = Astro.props;
+---
+
+<header>
+  <HeaderTags />
+  <h1>{heading}</h1>
+</header>

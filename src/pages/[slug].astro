@@ -1,0 +1,50 @@
+---
+import { Image } from "@astrojs/image/components";
+import { useStoryblokApi } from "@storyblok/astro";
+import { marked } from "marked";
+import Layout from "../layouts/Layout.astro";
+
+export async function getStaticPaths() {
+  const storyblokApi = useStoryblokApi();
+
+  const { data } = await storyblokApi.get("cdn/stories", {
+    starts_with: "blog-posts/",
+    version: import.meta.env.DEV ? "draft" : "published",
+  });
+  const stories = data.stories;
+
+  return stories.map((story: any) => {
+    return {
+      params: { slug: story.slug },
+    };
+  });
+}
+
+const { slug } = Astro.params;
+
+const storyblokApi = useStoryblokApi();
+
+const { data } = await storyblokApi.get(`cdn/stories/blog-posts/${slug}`, {
+  version: import.meta.env.DEV ? "draft" : "published",
+});
+
+const story = data.story;
+const content = marked(story.content.content);
+---
+
+<Layout title={story.content.title}>
+  <article>
+    <header>
+      <p>{story.tag_list.join(" - ")}</p>
+      <h1>{story.content.title}</h1>
+      <p>{story.content.description}</p>
+      <Image
+        src={story.content.heroImage.filename}
+        alt={story.content.heroImage.alt}
+        aspectRatio={1 / 2}
+        width={400}
+      />
+    </header>
+    <section set:html={content}></section>
+  </article>
+</Layout>

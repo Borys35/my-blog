@@ -1,0 +1,23 @@
+---
+import { useStoryblokApi } from "@storyblok/astro";
+import type { Tag } from "../types";
+import { nameToSlug } from "../utils/nameToSlug";
+
+const storyblokApi = useStoryblokApi();
+const { data } = await storyblokApi.get("cdn/tags/", {
+  startsWith: "blog-posts/",
+  version: import.meta.env.DEV ? "draft" : "published",
+});
+
+const tags: Tag[] = data.tags;
+---
+
+<ul>
+  {
+    tags.map((tag) => (
+      <li>
+        <a href={`/tags/${nameToSlug(tag.name)}`}>{tag.name}</a>
+      </li>
+    ))
+  }
+</ul>

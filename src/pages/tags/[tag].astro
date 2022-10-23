@@ -1,0 +1,49 @@
+---
+import { useStoryblokApi } from "@storyblok/astro";
+import Header from "../../components/Header.astro";
+import Layout from "../../layouts/Layout.astro";
+import type { Tag } from "../../types";
+import { nameToSlug } from "../../utils/nameToSlug";
+import { slugToName } from "../../utils/slugToName";
+
+export async function getStaticPaths() {
+  const storyblokApi = useStoryblokApi();
+
+  const { data } = await storyblokApi.get("cdn/tags/", {
+    startsWith: "blog-posts/",
+    version: import.meta.env.DEV ? "draft" : "published",
+  });
+  const tags: Tag[] = data.tags;
+
+  return tags.map((tag) => {
+    return {
+      params: { tag: nameToSlug(tag.name) },
+    };
+  });
+}
+
+const { tag } = Astro.params;
+const tagName = slugToName(tag!.toString());
+
+const storyblokApi = useStoryblokApi();
+const { data } = await storyblokApi.get("cdn/stories", {
+  starts_with: "blog-posts/",
+  version: import.meta.env.DEV ? "draft" : "published",
+  with_tag: tagName,
+});
+
+const stories = data.stories;
+---
+
+<Layout title={tagName}>
+  <Header heading={tagName} />
+  <ul>
+    {
+      stories.map((story: any) => (
+        <li>
+          <a href={`/${story.slug}`}>{story.content.title}</a>
+        </li>
+      ))
+    }
+  </ul>
+</Layout>
