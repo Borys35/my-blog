@@ -16,28 +16,48 @@ const { title } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title} - BORYS' BLOG</title>
-    <style is:global>
-      @tailwind base;
-      @tailwind components;
-      @tailwind utilities;
-
-      @layer base {
-        h1 {
-          @apply text-2xl;
-        }
-        h2 {
-          @apply text-xl;
-        }
-        h3 {
-          @apply text-lg;
-        }
-        a {
-          @apply text-blue-600 underline;
-        }
-      }
-    </style>
   </head>
-  <body>
+  <style is:global>
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;
+
+    @layer base {
+      * {
+        @apply text-text;
+      }
+      h1 {
+        @apply text-6xl;
+      }
+      h2 {
+        @apply text-5xl;
+      }
+      h3 {
+        @apply text-4xl;
+      }
+      h4 {
+        @apply text-3xl;
+      }
+      h5 {
+        @apply text-2xl;
+      }
+      h6 {
+        @apply text-xl;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        @apply font-bold;
+      }
+      a {
+        @apply text-blue-600 underline;
+      }
+    }
+  </style>
+  <body class="px-4 bg-bg">
     <Navbar />
     <slot />
   </body>

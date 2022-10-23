@@ -1,7 +1,10 @@
 ---
 import { useStoryblokApi } from "@storyblok/astro";
+import classNames from "classnames";
 import type { Tag } from "../types";
 import { nameToSlug } from "../utils/nameToSlug";
+
+const { class: className } = Astro.props;
 
 const storyblokApi = useStoryblokApi();
 const { data } = await storyblokApi.get("cdn/tags/", {
@@ -12,11 +15,11 @@ const { data } = await storyblokApi.get("cdn/tags/", {
 const tags: Tag[] = data.tags;
 ---
 
-<ul>
+<ul class={classNames("flex gap-4", className)}>
   {
     tags.map((tag) => (
       <li>
-        <a href={`/tags/${nameToSlug(tag.name)}`}>{tag.name}</a>
+        <a href={`/my-blog/tags/${nameToSlug(tag.name)}`}>{tag.name}</a>
       </li>
     ))
   }

@@ -25,7 +25,7 @@ const homeStory = homeRes.data.story;
       {
         stories.map((story: any) => (
           <li>
-            <a href={`/${story.slug}`}>{story.content.title}</a>
+            <a href={`/my-blog/${story.slug}`}>{story.content.title}</a>
           </li>
         ))
       }

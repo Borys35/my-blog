@@ -7,6 +7,8 @@ import storyblok from "@storyblok/astro";
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://borys35.github.io',
+  base: '/my-blog',
   integrations: [
     tailwind({
       config: {
