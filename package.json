@@ -1,7 +1,7 @@
 {
-  "name": "@example/basics",
+  "name": "my-blog",
   "type": "module",
-  "homepage": "https://gitname.github.io/my-blog",
+  "homepage": ".",
   "version": "0.0.1",
   "private": true,
   "scripts": {
