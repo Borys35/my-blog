@@ -14,9 +14,12 @@ const { title, description, heroImage, tags } = content;
 
 <a
   href={`/my-blog/${slug}`}
-  class="group relative no-underline rounded-3xl aspect-square"
+  class={classNames(
+    "group relative no-underline rounded-3xl aspect-square",
+    className
+  )}
 >
-  <div class={classNames(className)}>
+  <div>
     <div
       class={classNames("rounded-3xl overflow-hidden", {
         "absolute top-0 left-0 w-full h-full -z-10": size !== "sm",

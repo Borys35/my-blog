@@ -22,8 +22,18 @@ const homeStory = homeRes.data.story;
 <Layout title="Home">
   <main>
     <Header heading={homeStory.content.heading} />
-    <PostGrid cellSize="lg" posts={stories} />
-    <PostGrid cellSize="md" posts={stories} />
-    <PostGrid cellSize="sm" posts={stories} />
+    <div class="flex flex-col gap-y-32">
+      <section>
+        <PostGrid cellSize="landing" posts={stories} />
+      </section>
+      <section>
+        <h2 class="mb-6">Most popular</h2>
+        <PostGrid cellSize="lg" posts={stories} />
+      </section>
+      <section>
+        <h2 class="mb-6">More posts</h2>
+        <PostGrid cellSize="md" posts={stories} />
+      </section>
+    </div>
   </main>
 </Layout>
