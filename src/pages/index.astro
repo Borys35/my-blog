@@ -1,6 +1,7 @@
 ---
 import { useStoryblokApi } from "@storyblok/astro";
-import Header from "../components/Header.astro";
+import Header from "../components/header/Header.astro";
+import PostGrid from "../components/posts/PostGrid.astro";
 import Layout from "../layouts/Layout.astro";
 
 const storyblokApi = useStoryblokApi();
@@ -21,14 +22,8 @@ const homeStory = homeRes.data.story;
 <Layout title="Home">
   <main>
     <Header heading={homeStory.content.heading} />
-    <ul>
-      {
-        stories.map((story: any) => (
-          <li>
-            <a href={`/my-blog/${story.slug}`}>{story.content.title}</a>
-          </li>
-        ))
-      }
-    </ul>
+    <PostGrid cellSize="lg" posts={stories} />
+    <PostGrid cellSize="md" posts={stories} />
+    <PostGrid cellSize="sm" posts={stories} />
   </main>
 </Layout>

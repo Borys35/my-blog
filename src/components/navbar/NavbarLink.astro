@@ -6,7 +6,7 @@ export interface Props {
 const { href } = Astro.props;
 ---
 
-<a href={href} class="no-underline text-xl font-bold flex gap-x-2">
+<a href={href} class="group no-underline text-xl font-bold flex gap-x-2">
   <span><slot /></span>
   <svg
     width="14"
@@ -14,7 +14,7 @@ const { href } = Astro.props;
     viewBox="0 0 14 14"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    class="translate-y-2"
+    class="translate-y-1 transition-transform group-hover:translate-y-0 group-hover:translate-x-1"
   >
     <path
       fill-rule="evenodd"

@@ -1,0 +1,61 @@
+---
+import { Image } from "@astrojs/image/components";
+import classNames from "classnames";
+import type { Post } from "../../types";
+
+export interface Props extends Post {
+  size: "sm" | "md" | "lg";
+  class?: string;
+}
+
+const { size, class: className, slug, content } = Astro.props;
+const { title, description, heroImage, tags } = content;
+---
+
+<a
+  href={`/my-blog/${slug}`}
+  class="group relative no-underline rounded-3xl aspect-square"
+>
+  <div class={classNames(className)}>
+    <div
+      class={classNames("rounded-3xl overflow-hidden", {
+        "absolute top-0 left-0 w-full h-full -z-10": size !== "sm",
+        "relative aspect-square": size === "sm",
+      })}
+    >
+      <Image
+        src={heroImage.filename}
+        alt={heroImage.alt}
+        width={600}
+        aspectRatio={1}
+        fit="cover"
+        class="absolute top-0 left-0 w-full h-full transition-transform duration-300 group-hover:scale-105"
+      />
+      <div
+        class="bg-gradient-to-b from-black/80 via-black/80 to-black/30 absolute top-0 left-0 w-full h-full"
+      >
+      </div>
+    </div>
+    <div
+      class={classNames("flex flex-col gap-y-4 text-bg-darker p-10", {
+        "p-4 gap-y-1": size === "sm",
+      })}
+    >
+      <div class="flex gap-4">
+        {
+          tags.map((tag) => (
+            <p
+              class={classNames("uppercase", { "text-primary": size === "sm" })}
+            >
+              {tag}
+            </p>
+          ))
+        }
+      </div>
+      <h4 class={classNames("text-bg", { "text-text": size === "sm" })}>
+        {title}
+      </h4>
+      {size === "lg" && <p>{description}</p>}
+    </div>
+  </div>
+</a>

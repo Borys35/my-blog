@@ -1,5 +1,5 @@
 ---
-import { nameToSlug } from "../utils/nameToSlug";
+import { nameToSlug } from "../../utils/nameToSlug";
 
 export interface Props {
   name: string;
@@ -11,6 +11,6 @@ const { name } = Astro.props;
 <li>
   <a
     href={`/my-blog/tags/${nameToSlug(name)}`}
-    class="no-underline text-primary font-bold text-lg">{name}</a
+    class="text-primary font-bold text-lg">{name}</a
   >
 </li>
