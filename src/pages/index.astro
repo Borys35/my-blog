@@ -3,6 +3,7 @@ import { useStoryblokApi } from "@storyblok/astro";
 import Header from "../components/header/Header.astro";
 import PostGrid from "../components/posts/PostGrid.astro";
 import Layout from "../layouts/Layout.astro";
+import type { Post } from "../types";
 
 const storyblokApi = useStoryblokApi();
 const homeRes = await storyblokApi.get("cdn/stories/home", {
@@ -14,7 +15,7 @@ const postsRes = await storyblokApi.get("cdn/stories", {
   version: import.meta.env.DEV ? "draft" : "published",
 });
 
-const stories = postsRes.data.stories;
+const stories: Post[] = postsRes.data.stories;
 
 const homeStory = homeRes.data.story;
 ---
@@ -24,11 +25,11 @@ const homeStory = homeRes.data.story;
     <Header heading={homeStory.content.heading} />
     <div class="flex flex-col gap-y-32">
       <section>
-        <PostGrid cellSize="landing" posts={stories} />
+        <PostGrid cellSize="landing" posts={stories.slice(0, 5)} />
       </section>
       <section>
         <h2 class="mb-6">Most popular</h2>
-        <PostGrid cellSize="lg" posts={stories} />
+        <PostGrid cellSize="lg" posts={stories.slice(0, 2)} />
       </section>
       <section>
         <h2 class="mb-6">More posts</h2>

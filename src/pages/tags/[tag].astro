@@ -1,6 +1,7 @@
 ---
 import { useStoryblokApi } from "@storyblok/astro";
 import Header from "../../components/header/Header.astro";
+import PostGrid from "../../components/posts/PostGrid.astro";
 import Layout from "../../layouts/Layout.astro";
 import type { Tag } from "../../types";
 import { nameToSlug } from "../../utils/nameToSlug";
@@ -37,13 +38,5 @@ const stories = data.stories;
 
 <Layout title={tagName}>
   <Header heading={tagName} />
-  <ul>
-    {
-      stories.map((story: any) => (
-        <li>
-          <a href={`/my-blog/${story.slug}`}>{story.content.title}</a>
-        </li>
-      ))
-    }
-  </ul>
+  <PostGrid cellSize="lg" posts={stories} />
 </Layout>

@@ -8,8 +8,8 @@ export interface Props extends Post {
   class?: string;
 }
 
-const { size, class: className, slug, content } = Astro.props;
-const { title, description, heroImage, tags } = content;
+const { size, class: className, slug, tag_list, content } = Astro.props;
+const { title, description, heroImage } = content;
 ---
 
 <a
@@ -44,9 +44,9 @@ const { title, description, heroImage, tags } = content;
         "p-4 gap-y-1": size === "sm",
       })}
     >
-      <div class="flex gap-4">
+      <div class="flex gap-6">
         {
-          tags.map((tag) => (
+          tag_list.map((tag) => (
             <p
               class={classNames("uppercase", { "text-primary": size === "sm" })}
             >
