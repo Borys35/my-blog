@@ -1,7 +1,9 @@
 ---
 import { Image } from "@astrojs/image/components";
 import { useStoryblokApi } from "@storyblok/astro";
+import classNames from "classnames";
 import { marked } from "marked";
+import PostGrid from "../components/posts/PostGrid.astro";
 import Layout from "../layouts/Layout.astro";
 
 export async function getStaticPaths() {
@@ -29,22 +31,48 @@ const { data } = await storyblokApi.get(`cdn/stories/blog-posts/${slug}`, {
 });
 
 const story = data.story;
+
+const { data: storiesData } = await storyblokApi.get("cdn/stories", {
+  starts_with: "blog-posts/",
+  version: import.meta.env.DEV ? "draft" : "published",
+  with_tag: story.tag_list,
+  per_page: 3,
+});
+
+const stories = storiesData.stories;
 const content = marked(story.content.content);
 ---
 
 <Layout title={story.content.title}>
   <article>
-    <header>
-      <p>{story.tag_list.join(" - ")}</p>
-      <h1>{story.content.title}</h1>
-      <p>{story.content.description}</p>
-      <Image
-        src={story.content.heroImage.filename}
-        alt={story.content.heroImage.alt}
-        aspectRatio={1 / 2}
-        width={400}
-      />
+    <header class="grid grid-cols-2 gap-24 mb-64 mt-24">
+      <div class="py-16 flex flex-col gap-y-4">
+        <div class="flex gap-6">
+          {
+            story.tag_list.map((tag: string) => (
+              <p class={classNames("uppercase text-primary font-bold")}>
+                {tag}
+              </p>
+            ))
+          }
+        </div>
+        <h1>{story.content.title}</h1>
+        <p>{story.content.description}</p>
+      </div>
+      <div class="justify-self-end">
+        <Image
+          src={story.content.heroImage.filename}
+          alt={story.content.heroImage.alt}
+          aspectRatio={1 / 1.2}
+          width={600}
+          class="rounded-3xl"
+        />
+      </div>
     </header>
-    <section set:html={content}></section>
+    <section set:html={content} class="post-section"></section>
+    <div class="mt-48 border-t border-text pt-32">
+      <h2 class="pb-6">More posts</h2>
+      <PostGrid cellSize="md" posts={stories} />
+    </div>
   </article>
 </Layout>

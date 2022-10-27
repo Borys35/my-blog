@@ -40,3 +40,17 @@
     @apply leading-loose;
   }
 }
+
+@layer components {
+  .post-section {
+    @apply max-w-5xl flex flex-col gap-y-8 mx-auto text-lg;
+  }
+
+  .post-section img {
+    @apply my-24 rounded-xl;
+  }
+
+  .post-section > *:not(:has(img)) {
+    @apply px-12;
+  }
+}
