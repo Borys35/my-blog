@@ -15,9 +15,11 @@ const { cellSize, class: className, posts } = Astro.props;
 <div
   class={classNames(
     "grid gap-12",
-    { "grid-cols-2": cellSize === "lg" },
-    { "grid-cols-3": cellSize === "md" },
-    { "grid-cols-4": cellSize === "sm" || cellSize === "landing" },
+    { "grid-cols-1 md:grid-cols-2": cellSize === "lg" },
+    { "grid-cols-1 sm:grid-cols-2 md:grid-cols-3": cellSize === "md" },
+    {
+      "grid-cols-2 md:grid-cols-4": cellSize === "sm" || cellSize === "landing",
+    },
     className
   )}
 >

@@ -4,7 +4,7 @@
 
 @layer base {
   html {
-    @apply text-text font-light overflow-x-hidden;
+    @apply text-text font-light overflow-x-hidden w-full text-xs;
   }
   h1 {
     @apply text-6xl;
@@ -39,18 +39,26 @@
   p {
     @apply leading-loose;
   }
+
+  @media screen(lg) {
+    html {
+      @apply text-text font-light overflow-x-hidden text-base;
+    }
+  }
 }
 
 @layer components {
   .post-section {
-    @apply max-w-5xl flex flex-col gap-y-8 mx-auto text-lg;
+    @apply max-w-5xl flex flex-col gap-y-8 mx-auto text-xl;
   }
 
   .post-section img {
     @apply my-24 rounded-xl;
   }
 
-  .post-section > *:not(:has(img)) {
-    @apply px-12;
+  @media screen(md) {
+    .post-section > *:not(:has(img)) {
+      @apply px-12;
+    }
   }
 }
