@@ -34,7 +34,7 @@
     @apply leading-normal;
   }
   a {
-    @apply underline;
+    @apply underline inline-block;
   }
   p {
     @apply leading-loose;
@@ -59,6 +59,29 @@
   @media screen(md) {
     .post-section > *:not(:has(img)) {
       @apply px-12;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    #nav-list.expanded {
+      @apply absolute top-28 right-0 flex flex-col gap-y-4 items-end text-bg z-20;
+    }
+
+    nav:has(#nav-list.expanded) {
+      @apply text-bg;
+    }
+
+    #nav-list > * {
+      @apply z-20;
+    }
+
+    #nav-list.expanded:before {
+      content: "";
+      @apply absolute w-96 h-96 rounded-full bg-text top-0 right-0 translate-x-32 -translate-y-48 z-10;
+    }
+
+    #nav-list:not(.expanded) {
+      @apply hidden;
     }
   }
 }
