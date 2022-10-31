@@ -4,7 +4,10 @@
 
 @layer base {
   html {
-    @apply text-text font-light overflow-x-hidden w-full text-xs;
+    @apply text-text font-light overflow-x-hidden w-full text-sm;
+  }
+  body {
+    @apply overflow-x-hidden;
   }
   h1 {
     @apply text-6xl;
@@ -42,7 +45,7 @@
 
   @media screen(lg) {
     html {
-      @apply text-text font-light overflow-x-hidden text-base;
+      @apply text-base;
     }
   }
 }
