@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://borys35.github.io/my-blog/sitemap-index.xml
