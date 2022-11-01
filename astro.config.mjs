@@ -2,8 +2,10 @@ import { defineConfig } from "astro/config";
 
 // https://astro.build/config
 import image from "@astrojs/image";
+import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 import storyblok from "@storyblok/astro";
+import robotsTxt from "astro-robots-txt";
 
 // https://astro.build/config
 export default defineConfig({
@@ -21,5 +23,7 @@ export default defineConfig({
     image({
       serviceEntryPoint: "@astrojs/image/sharp",
     }),
+    robotsTxt(),
+    sitemap(),
   ],
 });
